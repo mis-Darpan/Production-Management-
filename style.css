@@ -1,0 +1,224 @@
+:root {
+  --indigo: #1e1b4b;
+  --indigo-light: #3730a3;
+  --accent: #6366f1;
+  --accent-soft: #e0e7ff;
+  --success: #16a34a;
+  --danger: #dc2626;
+  --bg: #f8f9fc;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --muted: #64748b;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* ── Header ── */
+.header {
+  background: var(--indigo);
+  color: #fff;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header h1 { font-size: 17px; font-weight: 600; letter-spacing: 0.3px; }
+.header span { font-size: 12px; opacity: 0.6; }
+
+/* ── Tabs ── */
+.tabs {
+  display: flex;
+  background: var(--indigo);
+  padding: 0 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.tab-btn {
+  padding: 10px 20px;
+  color: rgba(255,255,255,0.55);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+.tab-btn.active { color: #fff; border-bottom-color: var(--accent); }
+
+/* ── Main ── */
+.main { max-width: 600px; margin: 30px auto; padding: 0 16px; }
+
+/* ── Card ── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--indigo);
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Form ── */
+.form-group { margin-bottom: 16px; }
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+select,
+input[type="number"],
+input[type="date"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  font-size: 14px;
+  color: var(--text);
+  background: #fff;
+  outline: none;
+  transition: border 0.2s;
+  -webkit-appearance: none;
+}
+select:focus, input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+}
+select:disabled { background: var(--bg); color: var(--muted); }
+
+/* ── Buttons ── */
+.btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-primary { background: var(--indigo); color: #fff; }
+.btn-primary:hover { background: var(--indigo-light); }
+.btn-primary:disabled { background: var(--muted); cursor: not-allowed; }
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 13px;
+  padding: 9px;
+  margin-top: 8px;
+}
+.btn-outline:hover { background: var(--bg); }
+
+/* ── Toast ── */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--indigo);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 500;
+  opacity: 0;
+  transition: all 0.3s;
+  z-index: 999;
+  white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast.success { background: var(--success); }
+.toast.error { background: var(--danger); }
+
+/* ── Loading ── */
+.loading { text-align: center; padding: 40px; color: var(--muted); font-size: 14px; }
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 0 auto 12px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Dashboard Filters ── */
+.dash-filters { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+.dash-filters input, .dash-filters select { flex: 1; min-width: 130px; }
+
+/* ── Summary Cards ── */
+.summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+.summary-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+}
+.summary-card .val { font-size: 28px; font-weight: 700; color: var(--indigo); }
+.summary-card .lbl { font-size: 11px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.4px; }
+
+/* ── Log Table ── */
+.log-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.log-table th {
+  background: var(--indigo);
+  color: #fff;
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.log-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--text); }
+.log-table tr:last-child td { border-bottom: none; }
+.log-table tr:hover td { background: var(--bg); }
+
+/* ── Badges ── */
+.badge { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.badge-prismatic { background: #ede9fe; color: #5b21b6; }
+.badge-2w { background: #dbeafe; color: #1d4ed8; }
+
+/* ── Empty State ── */
+.empty { text-align: center; padding: 32px; color: var(--muted); font-size: 13px; }
+
+/* ── Worker Summary Table ── */
+.worker-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.worker-table th {
+  background: var(--accent-soft);
+  color: var(--indigo);
+  padding: 9px 12px;
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.worker-table td { padding: 9px 12px; border-bottom: 1px solid var(--border); }
+.worker-table tr:last-child td { border-bottom: none; }
+
+/* ── Tab Content ── */
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .summary-grid { grid-template-columns: repeat(2, 1fr); }
+  .main { margin: 16px auto; }
+}
