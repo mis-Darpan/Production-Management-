@@ -19,7 +19,8 @@
 <!-- ── Tabs ── -->
 <div class="tabs">
   <button class="tab-btn active" onclick="switchTab('entry', this)">📝 Entry</button>
-  <button class="tab-btn" onclick="switchTab('dashboard', this)">📊 Dashboard</button>
+  <button class="tab-btn" onclick="switchTab('worker', this)">👷 Worker Dashboard</button>
+  <button class="tab-btn" onclick="switchTab('order', this)">📦 Order Tracking</button>
 </div>
 
 <!-- ══════════════════════════════
@@ -37,13 +38,20 @@
       <div class="card">
         <div class="card-title">Production Entry</div>
 
-        <!-- Date -->
         <div class="form-group">
           <label>Date</label>
           <input type="date" id="entryDate" />
         </div>
 
-        <!-- Hall + Stage side by side on laptop -->
+        <div class="form-group">
+          <label>Order ID</label>
+          <div class="input-wrap">
+            <input type="text" id="orderIdInput" placeholder="ORD-0001" maxlength="10"
+              oninput="validateOrderId(this)" autocomplete="off" />
+            <span class="input-hint" id="orderIdHint"></span>
+          </div>
+        </div>
+
         <div class="form-row">
           <div class="form-group">
             <label>Hall</label>
@@ -59,7 +67,6 @@
           </div>
         </div>
 
-        <!-- Worker + Quantity side by side on laptop -->
         <div class="form-row">
           <div class="form-group">
             <label>Worker</label>
@@ -82,26 +89,24 @@
 </div>
 
 <!-- ══════════════════════════════
-     TAB 2: DASHBOARD
+     TAB 2: WORKER DASHBOARD
      ══════════════════════════════ -->
-<div id="tab-dashboard" class="tab-content">
+<div id="tab-worker" class="tab-content">
   <div class="main">
 
-    <!-- Filters -->
     <div class="card">
       <div class="card-title">Filter</div>
       <div class="dash-filters">
-        <input type="date" id="dashDate" onchange="loadDashboard()" />
-        <select id="dashHall" onchange="loadDashboard()">
+        <input type="date" id="dashDate" onchange="loadWorkerDashboard()" />
+        <select id="dashHall" onchange="loadWorkerDashboard()">
           <option value="All">All Halls</option>
           <option value="Prismatic">Prismatic</option>
           <option value="2 Wheeler">2 Wheeler</option>
         </select>
-        <button class="btn btn-outline btn-sm" onclick="loadDashboard()">🔄 Refresh</button>
+        <button class="btn btn-outline btn-sm" onclick="loadWorkerDashboard()">🔄 Refresh</button>
       </div>
     </div>
 
-    <!-- Summary -->
     <div class="summary-grid">
       <div class="summary-card">
         <div class="val" id="totalEntries">-</div>
@@ -117,17 +122,39 @@
       </div>
     </div>
 
-    <!-- Worker Summary -->
     <div class="card">
       <div class="card-title">👷 Worker-wise Summary</div>
       <div class="table-wrap" id="workerSummaryBody"></div>
     </div>
 
-    <!-- Detailed Log -->
     <div class="card">
       <div class="card-title">📋 Detailed Log</div>
-      <div class="table-wrap" id="dashboardBody"></div>
+      <div class="table-wrap" id="workerLogBody"></div>
     </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     TAB 3: ORDER TRACKING
+     ══════════════════════════════ -->
+<div id="tab-order" class="tab-content">
+  <div class="main">
+
+    <div class="card">
+      <div class="card-title">Order Search</div>
+      <div class="search-row">
+        <div class="input-wrap" style="flex:1;">
+          <input type="text" id="orderSearchInput" placeholder="ORD-0001"
+            maxlength="10" oninput="validateSearchId(this)"
+            onkeydown="if(event.key==='Enter') searchOrder()" autocomplete="off" />
+          <span class="input-hint" id="searchIdHint"></span>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="searchOrder()">🔍 Search</button>
+      </div>
+    </div>
+
+    <div id="orderResult"></div>
 
   </div>
 </div>
