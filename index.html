@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Litpax Production Entry</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ── Header ── -->
+<div class="header">
+  <h1>🔋 Litpax Production Entry</h1>
+  <span id="todayDate"></span>
+</div>
+
+<!-- ── Tabs ── -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('entry', this)">Entry</button>
+  <button class="tab-btn" onclick="switchTab('dashboard', this)">Dashboard</button>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- TAB 1: ENTRY FORM                         -->
+<!-- ══════════════════════════════════════════ -->
+<div id="tab-entry" class="tab-content active">
+  <div class="main">
+
+    <div id="configLoader" class="loading">
+      <div class="spinner"></div>
+      Loading...
+    </div>
+
+    <div id="entryForm" style="display:none;">
+      <div class="card">
+        <div class="card-title">📝 Production Entry</div>
+
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" id="entryDate" />
+        </div>
+
+        <div class="form-group">
+          <label>Hall</label>
+          <select id="hallSelect" onchange="onHallChange()">
+            <option value="">-- Hall Select Karo --</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Stage</label>
+          <select id="stageSelect" disabled>
+            <option value="">-- Pehle Hall Select Karo --</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Worker</label>
+          <select id="workerSelect" disabled>
+            <option value="">-- Pehle Hall Select Karo --</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Quantity (Batteries)</label>
+          <input type="number" id="quantityInput" placeholder="e.g. 50" min="1" />
+        </div>
+
+        <button class="btn btn-primary" id="submitBtn" onclick="submitEntry()">✅ Submit Entry</button>
+        <button class="btn btn-outline" onclick="resetForm()">🔄 Reset</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- TAB 2: DASHBOARD                          -->
+<!-- ══════════════════════════════════════════ -->
+<div id="tab-dashboard" class="tab-content">
+  <div class="main">
+
+    <div class="card">
+      <div class="card-title">🔍 Filter</div>
+      <div class="dash-filters">
+        <input type="date" id="dashDate" onchange="loadDashboard()" />
+        <select id="dashHall" onchange="loadDashboard()">
+          <option value="All">All Halls</option>
+          <option value="Prismatic">Prismatic</option>
+          <option value="2 Wheeler">2 Wheeler</option>
+        </select>
+      </div>
+      <button class="btn btn-outline" style="width:auto;padding:8px 20px;" onclick="loadDashboard()">
+        🔄 Refresh
+      </button>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="val" id="totalEntries">-</div>
+        <div class="lbl">Total Entries</div>
+      </div>
+      <div class="summary-card">
+        <div class="val" id="totalQty">-</div>
+        <div class="lbl">Total Batteries</div>
+      </div>
+      <div class="summary-card">
+        <div class="val" id="totalWorkers">-</div>
+        <div class="lbl">Workers Active</div>
+      </div>
+    </div>
+
+    <!-- Worker Summary -->
+    <div class="card">
+      <div class="card-title">👷 Worker-wise Summary</div>
+      <div id="workerSummaryBody"></div>
+    </div>
+
+    <!-- Detailed Log -->
+    <div class="card">
+      <div class="card-title">📋 Detailed Log</div>
+      <div id="dashboardBody" style="overflow-x:auto;"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Scripts -->
+<script src="config.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
